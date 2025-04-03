@@ -1,0 +1,21 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "MIT"
+[[mods]] #
+modId = "endtinkers"
+version = "1.0.0"
+displayName = "endtinkers"
+authors = "BIAN"
+description = '''cs'''
+[[dependencies]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
