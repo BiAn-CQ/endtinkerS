@@ -10,12 +10,34 @@ description = '''cs'''
 [[dependencies]]
 modId = "forge"
 mandatory = true
-versionRange = "${forge_version_range}"
+versionRange = "1.20.1-47.4.0"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies]]
 modId = "minecraft"
 mandatory = true
-versionRange = "${minecraft_version_range}"
+versionRange = "[1.20.1,1.20.2)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.endtinkers]]
+modId="tconstruct"
+mandatory=true
+versionRange="[3.9.2.37,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.endtinkers]]
+modId="mantle"
+mandatory=true
+versionRange="[1.11.43,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.endtinkers]]
+modId="jei"
+mandatory=false
+versionRange="[15.20.0.103,)"
+ordering="NONE"
+side="BOTH"
+
