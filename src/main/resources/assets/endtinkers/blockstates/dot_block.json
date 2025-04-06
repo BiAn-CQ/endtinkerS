@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "endtinkers:block/dot_block"
+      }
+    ]
+  }
+}
