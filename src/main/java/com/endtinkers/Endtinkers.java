@@ -1,5 +1,6 @@
 package com.endtinkers;
 
+import com.endtinkers.modifier.register.CustomModifier;
 import com.endtinkers.modifier.register.ModifierRegister;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -57,7 +58,7 @@ public class Endtinkers {
 
     public static ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(MODID);
     public static final StaticModifier<ModifierRegister.Rude> rude = MODIFIERS.register("rude", ModifierRegister.Rude::new);
-
+    public static final StaticModifier<CustomModifier.Rude2> rude2 = MODIFIERS.register("rude2", CustomModifier.Rude2::new);
 
     public static final RegistryObject<CreativeModeTab> mytab = CREATIVE_MODE_TAB.register("endtinkers_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("Endtinkers_tab"))

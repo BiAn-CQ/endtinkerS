@@ -1,6 +1,10 @@
 package com.endtinkers.modifier.register;
 
-
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -10,9 +14,12 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifier
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class ModifierRegister {
-
 
 
     public static class Rude extends Modifier implements MeleeDamageModifierHook {
@@ -28,7 +35,7 @@ public class ModifierRegister {
 
         //MeleeDamage方法修改工具伤害
         @Override
-        public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
+        public float getMeleeDamage(@NotNull IToolStackView tool, @NotNull ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
             //将实体形参context.getLivingTarget()定义为名为enemy的一个LivingEntity
             LivingEntity enemy = context.getLivingTarget();
             //检测该实体最大生命值是否大于20点
