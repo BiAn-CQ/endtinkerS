@@ -6,6 +6,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -48,13 +49,16 @@ public class Endtinkers {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-
-
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
 
     public static final RegistryObject<Block> dot_block = BLOCKS.register("dot_block", () -> new Block(BlockBehaviour.Properties.of().strength(4.0f).sound(SoundType.COPPER)));
     public static final RegistryObject<Item> DOT_BLOCK_ITEM = ITEMS.register("dot_block", () -> new BlockItem(dot_block.get(), new Item.Properties()));
     public static final RegistryObject<Item> dot_item = ITEMS.register("dot_item", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> dot_apple = ITEMS.register("dot_apple", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(20).saturationMod(20f).effect(new MobEffectInstance(MobEffects.REGENERATION,600*20,4),1f).build())));
+
+    public static final RegistryObject<MobEffect> CUSTOM_DAMAGE_EFFECT = MOB_EFFECTS.register("custom_damage_effect", CustomModifier.Rude2.CustomDamageEffect::new);
+
+
 
     public static ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(MODID);
     public static final StaticModifier<ModifierRegister.Rude> rude = MODIFIERS.register("rude", ModifierRegister.Rude::new);
@@ -80,7 +84,6 @@ public class Endtinkers {
 
         modEventBus.addListener(this::commonSetup);
 
-
         BLOCKS.register(modEventBus);
 
         ITEMS.register(modEventBus);
@@ -92,6 +95,7 @@ public class Endtinkers {
 
         Endtinkers.MODIFIERS.register(modEventBus);
 
+        MOB_EFFECTS.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

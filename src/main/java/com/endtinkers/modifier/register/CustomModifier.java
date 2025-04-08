@@ -1,6 +1,5 @@
 package com.endtinkers.modifier.register;
 
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -19,8 +18,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static net.minecraft.core.Registry.*;
 
 
 public class CustomModifier {
@@ -47,9 +44,9 @@ public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
             // 获取当前词条的等级
             int level = modifier.getLevel();
             // 获取武器的面板攻击值
-            float weaponDamage = tool.getDamage() * 1.5f;
+            float weaponDamage = tool.getDamage();
 
-            // 随机选择（词条等级）数种负面效果
+            // 第一次判断：随机选择（词条等级）数种负面效果，排除自定义效果
             List<MobEffect> statusEffects = getRandomStatusEffects(level);
             // 负面效果的总种数
             int effectCount = statusEffects.size();
@@ -61,24 +58,24 @@ public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
             float continuousDamage = level * weaponDamage * effectCount;
 
             // 检查目标实体身上的负面效果数量
-            if (enemy.getActiveEffects().size() >= 15) {
-                // 若目标获得 15 种以上负面效果时则直接秒杀
+            if (enemy.getActiveEffects().size() >= 20) {
+                // 若目标获得 20 种以上负面效果时则直接秒杀
                 enemy.setHealth(0);
             } else if (enemy.getActiveEffects().size() >= 10) {
-                // 若目标获得 10 种以上的负面效果时则持续伤害 ^ 3
-                continuousDamage = (float) Math.pow(continuousDamage, 3);
+                // 若目标获得 10 种以上的负面效果时则持续伤害 ^ 5
+                continuousDamage = (float) Math.pow(continuousDamage, 5);
             }
 
             // 持续（词条等级）×（负面效果总种数）秒，转换为游戏刻（1 秒 = 20 刻）
             int duration = level * effectCount * 20;
+            if (duration <= 0) {
+                System.out.println("Duration is invalid: " + duration);}
 
-            // 给目标实体添加自定义的持续伤害效果
+            // 第二次判断：赋予自定义的负面效果
             float finalContinuousDamage = continuousDamage;
-            enemy.addEffect(new MobEffectInstance(CustomDamageEffect.INSTANCE, duration, 0) {
+            enemy.addEffect(new MobEffectInstance(CustomDamageEffect.INSTANCE, duration, 2) {
                 public void applyEffectTick(LivingEntity entity, int amplifier) {
-                    if (entity.tickCount % 20 == 0) { // 每秒触发一次
-                        entity.hurt(entity.damageSources().magic(), finalContinuousDamage);
-                    }
+                    entity.hurt(entity.damageSources().magic(), finalContinuousDamage);
                 }
             });
         }
@@ -91,15 +88,18 @@ public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
      * @param count 负面效果的数量
      * @return 负面效果列表
      */
-
     private List<MobEffect> getRandomStatusEffects(int count) {
         // 获取所有 MobEffect 的 ResourceLocation 列表
         List<ResourceLocation> allEffectIds = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getKeys());
         List<MobEffect> allStatusEffects = new ArrayList<>();
         // 根据 ResourceLocation 获取对应的 MobEffect 实例
-        for (Object effectId : allEffectIds) {
-            MobEffect effect =  ForgeRegistries.MOB_EFFECTS.getValue((ResourceLocation) effectId);
+        for (ResourceLocation effectId : allEffectIds) {
+            MobEffect effect =  ForgeRegistries.MOB_EFFECTS.getValue(effectId);
             if (effect != null) {
+                // 若不包含自定义效果，则过滤掉 CustomDamageEffect
+                if (effect instanceof CustomDamageEffect) {
+                    continue;
+                }
                 allStatusEffects.add(effect);
             }
         }
@@ -126,7 +126,7 @@ public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
      */
     private static void applyStatusEffects(LivingEntity entity, List<MobEffect> statusEffects, int level) {
         for (MobEffect effect : statusEffects) {
-            entity.addEffect(new MobEffectInstance(effect, level * 20 * 10, 0)); // 持续 10 秒
+            entity.addEffect(new MobEffectInstance(effect, level * 20 * 100, 4)); // 持续 100 秒
         }
     }
 
@@ -134,13 +134,16 @@ public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
     public static class CustomDamageEffect extends MobEffect {
         public static final CustomDamageEffect INSTANCE = new CustomDamageEffect();
 
-        private CustomDamageEffect() {
+        public CustomDamageEffect() {
             super(MobEffectCategory.HARMFUL, 0x000000); // 黑色
         }
-
         @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return true;
+            boolean shouldTick = duration % 20 == 0;
+            if (shouldTick) {
+                System.out.println("Effect should tick at duration: " + duration);
+            }
+            return shouldTick;
         }
     }
     }
