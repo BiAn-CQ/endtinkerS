@@ -1,5 +1,6 @@
 package com.endtinkers;
 
+import com.endtinkers.effect.CustomDamageEffect;
 import com.endtinkers.modifier.register.CustomModifier;
 import com.endtinkers.modifier.register.ModifierRegister;
 import com.mojang.logging.LogUtils;
@@ -56,7 +57,8 @@ public class Endtinkers {
     public static final RegistryObject<Item> dot_item = ITEMS.register("dot_item", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> dot_apple = ITEMS.register("dot_apple", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(20).saturationMod(20f).effect(new MobEffectInstance(MobEffects.REGENERATION,600*20,4),1f).build())));
 
-    public static final RegistryObject<MobEffect> CUSTOM_DAMAGE_EFFECT = MOB_EFFECTS.register("custom_damage_effect", CustomModifier.Rude2.CustomDamageEffect::new);
+
+
 
 
 
@@ -95,9 +97,14 @@ public class Endtinkers {
 
         Endtinkers.MODIFIERS.register(modEventBus);
 
-        MOB_EFFECTS.register(modEventBus);
+
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+
+        CustomDamageEffect.register(modEventBus);
+
+
     }
 
 

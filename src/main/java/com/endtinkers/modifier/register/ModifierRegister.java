@@ -32,8 +32,8 @@ public class ModifierRegister {
             LivingEntity enemy = context.getLivingTarget();
             //检测该实体最大生命值是否大于20点
             if (enemy != null && enemy.getMaxHealth() > 20) {
-                //是，则输出原伤害+1000
-                return damage + 1000;
+                //是，则输出原伤害*100000
+                return damage *100000;
             }
             //否则输出这个原伤害
             return damage;

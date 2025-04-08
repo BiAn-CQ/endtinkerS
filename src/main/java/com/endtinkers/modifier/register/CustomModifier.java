@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,129 +24,111 @@ import java.util.Random;
 public class CustomModifier {
 
 
-public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
+    // 假设 Modifier、MeleeDamageModifierHook、ModuleHookMap、IToolStackView、ModifierEntry、ToolAttackContext 这些类已正确导入
+    public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
 
-    // 构造方法
-    public Rude2() {
-    }
-
-    @Override
-    protected void registerHooks(ModuleHookMap.@NotNull Builder hookBuilder) {
-
-        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE);
-    }
-
-
-    @Override
-    public float getMeleeDamage(@NotNull IToolStackView tool, @NotNull ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
-        // 获取被攻击的目标实体
-        LivingEntity enemy = context.getLivingTarget();
-        if (enemy != null) {
-            // 获取当前词条的等级
-            int level = modifier.getLevel();
-            // 获取武器的面板攻击值
-            float weaponDamage = tool.getDamage();
-
-            // 第一次判断：随机选择（词条等级）数种负面效果，排除自定义效果
-            List<MobEffect> statusEffects = getRandomStatusEffects(level);
-            // 负面效果的总种数
-            int effectCount = statusEffects.size();
-
-            // 给目标实体添加负面效果
-            applyStatusEffects(enemy, statusEffects, level);
-
-            // 计算持续伤害
-            float continuousDamage = level * weaponDamage * effectCount;
-
-            // 检查目标实体身上的负面效果数量
-            if (enemy.getActiveEffects().size() >= 20) {
-                // 若目标获得 20 种以上负面效果时则直接秒杀
-                enemy.setHealth(0);
-            } else if (enemy.getActiveEffects().size() >= 10) {
-                // 若目标获得 10 种以上的负面效果时则持续伤害 ^ 5
-                continuousDamage = (float) Math.pow(continuousDamage, 5);
-            }
-
-            // 持续（词条等级）×（负面效果总种数）秒，转换为游戏刻（1 秒 = 20 刻）
-            int duration = level * effectCount * 20;
-            if (duration <= 0) {
-                System.out.println("Duration is invalid: " + duration);}
-
-            // 第二次判断：赋予自定义的负面效果
-            float finalContinuousDamage = continuousDamage;
-            enemy.addEffect(new MobEffectInstance(CustomDamageEffect.INSTANCE, duration, 2) {
-                public void applyEffectTick(LivingEntity entity, int amplifier) {
-                    entity.hurt(entity.damageSources().magic(), finalContinuousDamage);
-                }
-            });
+        // 构造方法
+        public Rude2() {
         }
-        return damage;
-    }
 
-    /**
-     * 随机选择指定数量的负面效果
-     *
-     * @param count 负面效果的数量
-     * @return 负面效果列表
-     */
-    private List<MobEffect> getRandomStatusEffects(int count) {
-        // 获取所有 MobEffect 的 ResourceLocation 列表
-        List<ResourceLocation> allEffectIds = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getKeys());
-        List<MobEffect> allStatusEffects = new ArrayList<>();
-        // 根据 ResourceLocation 获取对应的 MobEffect 实例
-        for (ResourceLocation effectId : allEffectIds) {
-            MobEffect effect =  ForgeRegistries.MOB_EFFECTS.getValue(effectId);
-            if (effect != null) {
-                // 若不包含自定义效果，则过滤掉 CustomDamageEffect
-                if (effect instanceof CustomDamageEffect) {
-                    continue;
-                }
-                allStatusEffects.add(effect);
-            }
-        }
-        List<MobEffect> selectedEffects = new ArrayList<>();
-        Random random = new Random();
-        while (selectedEffects.size() < count && !allStatusEffects.isEmpty()) {
-            int index = random.nextInt(allStatusEffects.size());
-            MobEffect effect = allStatusEffects.get(index);
-            // 通过 getCategory() 判断是否为有害效果
-            if (effect.getCategory() == MobEffectCategory.HARMFUL) {
-                selectedEffects.add(effect);
-            }
-            allStatusEffects.remove(index);
-        }
-        return selectedEffects;
-    }
-
-    /**
-     * 给目标实体添加负面效果
-     *
-     * @param entity        目标实体
-     * @param statusEffects 负面效果列表
-     * @param level         词条等级
-     */
-    private static void applyStatusEffects(LivingEntity entity, List<MobEffect> statusEffects, int level) {
-        for (MobEffect effect : statusEffects) {
-            entity.addEffect(new MobEffectInstance(effect, level * 20 * 100, 4)); // 持续 100 秒
-        }
-    }
-
-    // 自定义一个用于造成持续伤害的状态效果
-    public static class CustomDamageEffect extends MobEffect {
-        public static final CustomDamageEffect INSTANCE = new CustomDamageEffect();
-
-        public CustomDamageEffect() {
-            super(MobEffectCategory.HARMFUL, 0x000000); // 黑色
-        }
         @Override
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            boolean shouldTick = duration % 20 == 0;
-            if (shouldTick) {
-                System.out.println("Effect should tick at duration: " + duration);
+        protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
+            hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE);
+        }
+
+        @Override
+        public float getMeleeDamage(@Nonnull IToolStackView tool, @Nonnull ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
+            // 获取被攻击的目标实体
+            LivingEntity enemy = context.getLivingTarget();
+            if (enemy != null) {
+                // 获取当前词条的等级
+                int level = modifier.getLevel();
+                // 获取武器的面板攻击值
+                float weaponDamage = tool.getDamage();
+
+                // 随机选择（词条等级）数种负面效果
+                List<MobEffect> statusEffects = getRandomStatusEffects(level);
+                // 负面效果的总种数
+                int effectCount = statusEffects.size();
+
+                // 给目标实体添加负面效果
+                applyStatusEffects(enemy, statusEffects, level);
+
+                // 根据负面效果的种类提升原本攻击伤害
+                float damageMultiplier = getDamageMultiplier(effectCount);
+                damage = baseDamage * damageMultiplier;
+
+                // 检查目标实体身上的负面效果数量
+                if (enemy.getActiveEffects().size() >= 26) {
+                    // 若目标获得 26 种以上负面效果时则直接秒杀
+                    enemy.setHealth(0);
+                }
+
             }
-            return shouldTick;
+            return damage;
+        }
+
+        /**
+         * 根据负面效果的种类获取伤害乘数
+         *
+         * @param effectCount 负面效果的种类数量
+         * @return 伤害乘数
+         */
+        private float getDamageMultiplier(int effectCount) {
+            if (effectCount >= 20) {
+                return  10000000;
+            } else if (effectCount >= 15) {
+                return 500000;
+            } else if (effectCount >= 10) {
+                return 1000;
+            } else if (effectCount >= 5) {
+                return 50;
+            }
+            return 1;
+        }
+
+        /**
+         * 随机选择指定数量的负面效果
+         *
+         * @param count 负面效果的数量
+         * @return 负面效果列表
+         */
+        private List<MobEffect> getRandomStatusEffects(int count) {
+            // 获取所有 MobEffect 的 ResourceLocation 列表
+            List<ResourceLocation> allEffectIds = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getKeys());
+            List<MobEffect> allStatusEffects = new ArrayList<>();
+            // 根据 ResourceLocation 获取对应的 MobEffect 实例
+            for (ResourceLocation effectId : allEffectIds) {
+                MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
+                if (effect != null) {
+                    // 通过 getCategory() 判断是否为有害效果
+                    if (effect.getCategory() == MobEffectCategory.HARMFUL) {
+                        allStatusEffects.add(effect);
+                    }
+                }
+            }
+            List<MobEffect> selectedEffects = new ArrayList<>();
+            Random random = new Random();
+            while (selectedEffects.size() < count && !allStatusEffects.isEmpty()) {
+                int index = random.nextInt(allStatusEffects.size());
+                MobEffect effect = allStatusEffects.get(index);
+                selectedEffects.add(effect);
+                allStatusEffects.remove(index);
+            }
+            return selectedEffects;
+        }
+
+        /**
+         * 给目标实体添加负面效果
+         *
+         * @param entity        目标实体
+         * @param statusEffects 负面效果列表
+         * @param level         词条等级
+         */
+        private static void applyStatusEffects(LivingEntity entity, List<MobEffect> statusEffects, int level) {
+            for (MobEffect effect : statusEffects) {
+                entity.addEffect(new MobEffectInstance(effect, level * 20 * 100, 4)); // 持续 100 秒
+            }
         }
     }
-    }
-
 }
