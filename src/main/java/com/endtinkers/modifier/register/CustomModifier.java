@@ -5,8 +5,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -14,21 +14,20 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifier
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+// 假设 Modifier、MeleeDamageModifierHook、ModuleHookMap、IToolStackView、ModifierEntry、ToolAttackContext、ModifierHooks 这些类已正确导入
 public class CustomModifier {
 
-
-    // 假设 Modifier、MeleeDamageModifierHook、ModuleHookMap、IToolStackView、ModifierEntry、ToolAttackContext 这些类已正确导入
-    public static class Rude2 extends Modifier implements MeleeDamageModifierHook {
+    public static class dot extends Modifier implements MeleeDamageModifierHook {
 
         // 构造方法
-        public Rude2() {
+        public dot() {
         }
 
         @Override
@@ -48,22 +47,21 @@ public class CustomModifier {
 
                 // 随机选择（词条等级）数种负面效果
                 List<MobEffect> statusEffects = getRandomStatusEffects(level);
-                // 负面效果的总种数
-                int effectCount = statusEffects.size();
-
                 // 给目标实体添加负面效果
                 applyStatusEffects(enemy, statusEffects, level);
+
+                // 重新获取目标实体身上的负面效果数量
+                int effectCount = enemy.getActiveEffects().size();
 
                 // 根据负面效果的种类提升原本攻击伤害
                 float damageMultiplier = getDamageMultiplier(effectCount);
                 damage = baseDamage * damageMultiplier;
 
                 // 检查目标实体身上的负面效果数量
-                if (enemy.getActiveEffects().size() >= 26) {
+                if (effectCount >= 26) {
                     // 若目标获得 26 种以上负面效果时则直接秒杀
                     enemy.setHealth(0);
                 }
-
             }
             return damage;
         }
@@ -74,8 +72,11 @@ public class CustomModifier {
          * @param effectCount 负面效果的种类数量
          * @return 伤害乘数
          */
-        private float getDamageMultiplier(int effectCount) {
-            if (effectCount >= 20) {
+        private float getDamageMultiplier(float effectCount) {
+            if (effectCount >= 25) {
+                return  20000000000000f;
+            }
+            else if (effectCount >= 20) {
                 return  10000000;
             } else if (effectCount >= 15) {
                 return 500000;
@@ -131,4 +132,6 @@ public class CustomModifier {
             }
         }
     }
+
 }
+

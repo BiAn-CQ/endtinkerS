@@ -34,8 +34,16 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.library.materials.definition.Material;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.tools.part.ToolPartItem;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 
 @Mod(Endtinkers.MODID)
 public class Endtinkers {
@@ -54,17 +62,13 @@ public class Endtinkers {
 
     public static final RegistryObject<Block> dot_block = BLOCKS.register("dot_block", () -> new Block(BlockBehaviour.Properties.of().strength(4.0f).sound(SoundType.COPPER)));
     public static final RegistryObject<Item> DOT_BLOCK_ITEM = ITEMS.register("dot_block", () -> new BlockItem(dot_block.get(), new Item.Properties()));
-    public static final RegistryObject<Item> dot_item = ITEMS.register("dot_item", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> dot_apple = ITEMS.register("dot_apple", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(20).saturationMod(20f).effect(new MobEffectInstance(MobEffects.REGENERATION,600*20,4),1f).build())));
-
-
-
-
-
+    public static final MaterialStatsId DOT_MATERIAL_STATS_ID = new MaterialStatsId(Endtinkers.MODID, "dot_material_stats");
+    public static final RegistryObject<ToolPartItem> dot_item = ITEMS.register("dot_item", () -> new ToolPartItem(new Item.Properties(), DOT_MATERIAL_STATS_ID));
 
     public static ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(MODID);
     public static final StaticModifier<ModifierRegister.Rude> rude = MODIFIERS.register("rude", ModifierRegister.Rude::new);
-    public static final StaticModifier<CustomModifier.Rude2> rude2 = MODIFIERS.register("rude2", CustomModifier.Rude2::new);
+    public static final StaticModifier<CustomModifier.dot> dot = MODIFIERS.register("dot", CustomModifier.dot::new);
 
     public static final RegistryObject<CreativeModeTab> mytab = CREATIVE_MODE_TAB.register("endtinkers_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("Endtinkers_tab"))
@@ -103,6 +107,7 @@ public class Endtinkers {
 
 
         CustomDamageEffect.register(modEventBus);
+
 
 
     }

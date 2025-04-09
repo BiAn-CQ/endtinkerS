@@ -27,12 +27,29 @@ public class CustomDamageEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
-        entity.hurt(entity.damageSources().fellOutOfWorld(), 100.0F); // 世界中坠落伤害，固定伤害值为 100.0F
+    public void applyEffectTick(@NotNull LivingEntity entity, int amplifier)
+    {
+        int effectCount = entity.getActiveEffects().size();
+        int level = amplifier + 1;
+        float damageAmount = calculateDamage(effectCount, level);
+        entity.hurt(entity.damageSources().magic(), damageAmount);
+        entity.hurt(entity.damageSources().fall(), damageAmount);
+        entity.hurt(entity.damageSources().inWall(), damageAmount);
+        entity.hurt(entity.damageSources().inFire(), damageAmount);
+        entity.hurt(entity.damageSources().lightningBolt(), damageAmount);
+        entity.hurt(entity.damageSources().drown(), damageAmount);
+        entity.hurt(entity.damageSources().starve(), damageAmount);
+        entity.hurt(entity.damageSources().generic(), damageAmount);
+        entity.hurt(entity.damageSources().cactus(), damageAmount);
+        entity.hurt(entity.damageSources().dragonBreath(), damageAmount);
+        entity.hurt(entity.damageSources().wither(), damageAmount);
+        entity.hurt(entity.damageSources().freeze(), damageAmount);
     }
 
     private float calculateDamage(int effectCount, int level) {
-        if (effectCount >= 20) {
+        if (effectCount >= 25) {
+            return 100000000000000000000000000000000000000f * level * 100;
+        }else if (effectCount >= 20) {
             return 2147483647F;
         } else if (effectCount >= 15) {
             return 500000 * level * 100;
