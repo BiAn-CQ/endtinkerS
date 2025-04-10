@@ -1,0 +1,125 @@
+{
+  "color": "7C0507",
+  "fallbacks": [
+    "metal"
+  ],
+  "generator": {
+    "ignoreMaterialStats": false,
+    "supported_stats": [
+      "tconstruct:head",
+      "tconstruct:handle",
+      "tconstruct:extra",
+      "tconstruct:repair_kit",
+      "tconstruct:limb",
+      "tconstruct:grip"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "#5d31ff",
+            "grey": 85
+          },
+          {
+            "color": "#3665cd",
+            "grey": 98
+          },
+          {
+            "color": "#3471f6",
+            "grey": 109
+          },
+          {
+            "color": "#4a72c8",
+            "grey": 112
+          },
+          {
+            "color": "#765dd3",
+            "grey": 113
+          },
+          {
+            "color": "#6888cd",
+            "grey": 134
+          },
+          {
+            "color": "#6191fa",
+            "grey": 142
+          },
+          {
+            "color": "#7289ff",
+            "grey": 143
+          },
+          {
+            "color": "#26d6cd",
+            "grey": 160
+          },
+          {
+            "color": "#0dd9ff",
+            "grey": 161
+          },
+          {
+            "color": "#1fdbff",
+            "grey": 166
+          },
+          {
+            "color": "#c1b0ff",
+            "grey": 190
+          },
+          {
+            "color": "#9dc4ff",
+            "grey": 191
+          },
+          {
+            "color": "#e5b7ff",
+            "grey": 204
+          },
+          {
+            "color": "#b7ceff",
+            "grey": 204
+          },
+          {
+            "color": "#b3d3ff",
+            "grey": 206
+          },
+          {
+            "color": "#bcd1ff",
+            "grey": 207
+          },
+          {
+            "color": "#b7d7ff",
+            "grey": 209
+          },
+          {
+            "color": "#d5c9ff",
+            "grey": 210
+          },
+          {
+            "color": "#c0d9ff",
+            "grey": 213
+          },
+          {
+            "color": "#97f6f1",
+            "grey": 217
+          },
+          {
+            "color": "#cde2ff",
+            "grey": 222
+          },
+          {
+            "color": "#d7e7ff",
+            "grey": 228
+          },
+          {
+            "color": "#f2e0ff",
+            "grey": 232
+          },
+          {
+            "color": "#ffffff",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  }
+}

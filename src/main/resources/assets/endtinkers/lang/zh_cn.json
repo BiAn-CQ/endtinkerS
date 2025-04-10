@@ -2,5 +2,15 @@
   "item.endtinkers.dot_apple": "dot苹果",
   "item.endtinkers.dot_item": "dot锭",
   "block.endtinkers.dot_block": "dot块",
-  "Endtinkers_tab": "终焉工匠"
+  "Endtinkers_tab": "终焉工匠",
+
+
+
+  "effect.endtinkers.custom_damage_effect": "极速失血",
+  "modifier.endtinkers.dot": "重铸dot荣光，我辈义不容辞",
+  "material.endtinkers.dot_item": "dot锭",
+  "modifier.endtinkers.dot.flavor": "dot荣光!",
+  "modifier.endtinkers.dot.description": "攻击时使目标随机获得等同于词条等级数量的负面效果,而且工具的攻击伤害会随着目标负面效果数量的增多而提升"
+
+
 }

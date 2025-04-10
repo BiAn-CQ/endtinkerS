@@ -7,6 +7,6 @@ public class endtinkersMaterials {
     public static final MaterialId dot_item = createMaterial("dot_item");
 
     public static MaterialId createMaterial(String name) {
-        return new MaterialId(new ResourceLocation(Endtinkers.MODID, name)); //*是你的模组主类名
+        return new MaterialId(new ResourceLocation(Endtinkers.MODID, name)); //
     }
 }
