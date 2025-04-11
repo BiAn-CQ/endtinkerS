@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -14,7 +13,6 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifier
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -120,7 +118,7 @@ public class CustomModifier {
         }
 
         /**
-         * 给目标实体添加负面效果
+         * 给目标实体添加负面效果1
          *
          * @param entity        目标实体
          * @param statusEffects 负面效果列表

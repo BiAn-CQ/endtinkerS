@@ -4,5 +4,13 @@
       "name": "endtinkers:dot",
       "level": 1
     }
-  ]
+  ],
+  "perStat" : {
+"tconstruct:armor": [
+{
+"name": "endtinkers:dot2",
+"level": 1
+          }
+     ]
+   }
 }

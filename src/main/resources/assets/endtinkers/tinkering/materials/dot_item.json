@@ -1,8 +1,10 @@
 {
-  "color": "7C0507",
+  "color": "ff000000",
   "fallbacks": [
+    "slime_metal",
     "metal"
   ],
+  "luminosity": 15,
   "generator": {
     "ignoreMaterialStats": false,
     "supported_stats": [
@@ -14,112 +16,44 @@
       "tconstruct:grip"
     ],
     "transformer": {
-      "type": "tconstruct:recolor_sprite",
-      "color_mapping": {
-        "type": "tconstruct:grey_to_color",
+      "type": "tconstruct:grey_to_sprite",
         "palette": [
           {
-            "color": "#5d31ff",
-            "grey": 85
+            "grey": 0,
+            "color": "FF000000"
+
           },
           {
-            "color": "#3665cd",
-            "grey": 98
+            "grey": 63,
+            "color": "FFC8C8C8",
+            "path": "endtinkers:generator/dot1"
           },
           {
-            "color": "#3471f6",
-            "grey": 109
+            "grey": 102,
+
+            "path": "endtinkers:generator/dot1"
           },
           {
-            "color": "#4a72c8",
-            "grey": 112
+            "grey": 140,
+            "color": "FFE1E1E1",
+            "path": "endtinkers:generator/dot2"
           },
           {
-            "color": "#765dd3",
-            "grey": 113
+            "grey": 178,
+
+            "path": "endtinkers:generator/dot2"
           },
           {
-            "color": "#6888cd",
-            "grey": 134
+            "grey": 216,
+            "color": "FFE1E1E1",
+            "path": "endtinkers:generator/dot"
           },
           {
-            "color": "#6191fa",
-            "grey": 142
-          },
-          {
-            "color": "#7289ff",
-            "grey": 143
-          },
-          {
-            "color": "#26d6cd",
-            "grey": 160
-          },
-          {
-            "color": "#0dd9ff",
-            "grey": 161
-          },
-          {
-            "color": "#1fdbff",
-            "grey": 166
-          },
-          {
-            "color": "#c1b0ff",
-            "grey": 190
-          },
-          {
-            "color": "#9dc4ff",
-            "grey": 191
-          },
-          {
-            "color": "#e5b7ff",
-            "grey": 204
-          },
-          {
-            "color": "#b7ceff",
-            "grey": 204
-          },
-          {
-            "color": "#b3d3ff",
-            "grey": 206
-          },
-          {
-            "color": "#bcd1ff",
-            "grey": 207
-          },
-          {
-            "color": "#b7d7ff",
-            "grey": 209
-          },
-          {
-            "color": "#d5c9ff",
-            "grey": 210
-          },
-          {
-            "color": "#c0d9ff",
-            "grey": 213
-          },
-          {
-            "color": "#97f6f1",
-            "grey": 217
-          },
-          {
-            "color": "#cde2ff",
-            "grey": 222
-          },
-          {
-            "color": "#d7e7ff",
-            "grey": 228
-          },
-          {
-            "color": "#f2e0ff",
-            "grey": 232
-          },
-          {
-            "color": "#ffffff",
-            "grey": 255
+            "grey": 255,
+            "color": "FFFFFFFF",
+            "path": "endtinkers:generator/dot"
           }
         ]
       }
     }
   }
-}
