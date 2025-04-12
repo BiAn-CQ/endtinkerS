@@ -118,7 +118,7 @@ public class CustomModifier {
         }
 
         /**
-         * 给目标实体添加负面效果1
+         * 给目标实体添加负面效果
          *
          * @param entity        目标实体
          * @param statusEffects 负面效果列表
