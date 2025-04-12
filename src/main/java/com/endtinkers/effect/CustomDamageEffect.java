@@ -69,5 +69,5 @@ public static final RegistryObject<MobEffect> CUSTOM_DAMAGE_EFFECT = MOB_EFFECTS
 // 在模组主类中调用这个方法来注册
 public static void register(IEventBus eventBus) {
     MOB_EFFECTS.register(eventBus);
-}
+    }
 }
