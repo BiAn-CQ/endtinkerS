@@ -10,19 +10,19 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// 假设 Modifier、MeleeDamageModifierHook、ModuleHookMap、IToolStackView、ModifierEntry、ToolAttackContext、ModifierHooks 这些类已正确导入
+
 public class CustomModifier {
 
-    public static class dot extends Modifier implements MeleeDamageModifierHook {
+
+    public static class dot extends Modifier implements MeleeDamageModifierHook{
 
         // 构造方法
         public dot() {
@@ -31,6 +31,7 @@ public class CustomModifier {
         @Override
         protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
             hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE);
+            super.registerHooks(hookBuilder);
         }
 
         @Override
@@ -72,10 +73,9 @@ public class CustomModifier {
          */
         private float getDamageMultiplier(float effectCount) {
             if (effectCount >= 25) {
-                return  20000000000000f;
-            }
-            else if (effectCount >= 20) {
-                return  10000000;
+                return 20000000000000f;
+            } else if (effectCount >= 20) {
+                return 10000000;
             } else if (effectCount >= 15) {
                 return 500000;
             } else if (effectCount >= 10) {
@@ -102,6 +102,7 @@ public class CustomModifier {
                 if (effect != null) {
                     // 通过 getCategory() 判断是否为有害效果
                     if (effect.getCategory() == MobEffectCategory.HARMFUL) {
+
                         allStatusEffects.add(effect);
                     }
                 }
@@ -117,19 +118,25 @@ public class CustomModifier {
             return selectedEffects;
         }
 
-        /**
-         * 给目标实体添加负面效果
-         *
-         * @param entity        目标实体
-         * @param statusEffects 负面效果列表
-         * @param level         词条等级
-         */
-        private static void applyStatusEffects(LivingEntity entity, List<MobEffect> statusEffects, int level) {
-            for (MobEffect effect : statusEffects) {
-                entity.addEffect(new MobEffectInstance(effect, level * 20 * 100, 4)); // 持续 100 秒
-            }
+    }
+
+    /**
+     * 给目标实体添加负面效果
+     *
+     * @param entity        目标实体
+     * @param statusEffects 负面效果列表
+     * @param level         词条等级
+     */
+    private static void applyStatusEffects(LivingEntity entity, List<MobEffect> statusEffects, int level) {
+        for (MobEffect effect : statusEffects) {
+            entity.addEffect(new MobEffectInstance(effect, level * 20 * 100, 4)); // 持续 100 秒
         }
     }
 
-}
+
+
+    }
+
+
+
 

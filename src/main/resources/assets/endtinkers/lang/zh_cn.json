@@ -18,8 +18,13 @@
 
 
 
-  "modifier.endtinkers.dot2": "dot指令：对策",
-  "modifier.endtinkers.dot2.description": "集根据攻击者负面效果数量减伤，反弹，回血，增益，免负于一体"
+  "modifier.endtinkers.dot2": "dot指令：防御",
+  "modifier.endtinkers.dot2.flavor": "极致的防御!",
+  "modifier.endtinkers.dot2.description": "装备时给予飞行，免疫大部分伤害，免疫负面效果，同时给予增益效果",
+
+  "modifier.endtinkers.dot3": "天地同寿",
+  "modifier.endtinkers.dot3.flavor": "漫长的寿命",
+  "modifier.endtinkers.dot3.description": "你的工具装备将不消耗耐久"
 
 
 

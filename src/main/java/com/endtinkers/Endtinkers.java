@@ -3,6 +3,7 @@ package com.endtinkers;
 import com.endtinkers.effect.CustomDamageEffect;
 import com.endtinkers.modifier.register.CustomModifier;
 import com.endtinkers.modifier.register.DefenseModifier;
+import com.endtinkers.modifier.register.DurableModifier;
 import com.endtinkers.modifier.register.ModifierRegister;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -68,6 +69,7 @@ public class Endtinkers {
     public static final StaticModifier<ModifierRegister.Rude> rude = MODIFIERS.register("rude", ModifierRegister.Rude::new);
     public static final StaticModifier<CustomModifier.dot> dot = MODIFIERS.register("dot", CustomModifier.dot::new);
     public static final StaticModifier<DefenseModifier.dot2>dot2 = MODIFIERS.register("dot2", DefenseModifier.dot2::new);
+    public static final StaticModifier<DurableModifier.dot3>dot3 = MODIFIERS.register("dot3", DurableModifier.dot3::new);
 
     public static final RegistryObject<CreativeModeTab> mytab = CREATIVE_MODE_TAB.register("endtinkers_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("Endtinkers_tab"))
