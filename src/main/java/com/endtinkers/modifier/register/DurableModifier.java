@@ -2,7 +2,6 @@ package com.endtinkers.modifier.register;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
@@ -13,8 +12,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
-public class DurableModifier extends Modifier {
-                public static class dot3 extends Modifier implements ToolDamageModifierHook {
+public class DurableModifier  {
+                public static class dot3 extends NoLevelsModifier implements ToolDamageModifierHook {
 
 
     @Override
