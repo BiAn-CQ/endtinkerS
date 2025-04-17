@@ -1,0 +1,9 @@
+{
+  "type":"tconstruct:material_melting",
+  "input": "endtinker:dot_item",
+  "temperature": 5000,
+  "result":{
+    "fluid": "endtinker:dot_metal",
+    "amount": 90
+  }
+}

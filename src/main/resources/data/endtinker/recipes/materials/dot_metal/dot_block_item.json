@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "endtinker:dot_block"},
+  "value": 9,
+  "needed": 9,
+  "material": "endtinker:dot_item"
+}

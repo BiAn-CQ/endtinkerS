@@ -1,0 +1,24 @@
+{
+  "default": [
+    {
+      "name": "endtinker:dot",
+      "level": 1
+    },
+    {
+      "name": "endtinker:dot3",
+      "level": 1
+    }
+  ],
+  "perStat" : {
+"tconstruct:armor": [
+{
+"name": "endtinker:dot2",
+"level": 1
+          },
+  {
+    "name": "endtinker:dot3",
+    "level": 1
+  }
+     ]
+   }
+}

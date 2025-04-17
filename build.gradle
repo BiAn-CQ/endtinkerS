@@ -89,8 +89,8 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, 'endtinkers.refmap.json'
-    config 'endtinkers.mixins.json'
+    add sourceSets.main, 'endtinker.refmap.json'
+    config 'endtinker.mixins.json'
     debug.verbose = true
     debug.export = true
 }

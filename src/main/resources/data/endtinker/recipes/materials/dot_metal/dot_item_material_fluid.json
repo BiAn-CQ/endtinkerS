@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "name": "endtinker:dot_metal",
+    "amount": 90
+  },
+  "temperature": 5000,
+  "output": "endtinker:dot_item"
+}

@@ -1,0 +1,12 @@
+{
+"type": "tconstruct:melting",
+"ingredient": {
+"item": "endtinker:dot_item"
+},
+"result": {
+"fluid": "endtinker:dot_metal",
+"amount": 90
+},
+"temperature": 5000,
+"time": 10
+}

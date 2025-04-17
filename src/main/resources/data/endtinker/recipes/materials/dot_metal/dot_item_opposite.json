@@ -1,0 +1,13 @@
+{
+"type":"tconstruct:casting_table",
+"cast": {
+"tag": "tconstruct:casts/multi_use/ingot"
+},
+"cast_consumed": false,
+"fluid": {
+"name": "endtinker:dot_metal",
+"amount": 90
+},
+"result": "endtinker:dot_item",
+"cooling_time": 10
+}
